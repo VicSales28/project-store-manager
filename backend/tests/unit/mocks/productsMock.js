@@ -13,6 +13,12 @@ const getAllMock = [
   },
 ];
 
+const getByIdMock = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
 module.exports = {
   getAllMock,
+  getByIdMock,
 };

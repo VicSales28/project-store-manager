@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const connection = require('../../../src/models/connection');
-const { getAllMock } = require('../mocks/productsModelMock');
+const { getAllMock } = require('../mocks/productsMock');
 
 describe('Testando a camada model "./product"', function () {
   afterEach(sinon.restore);
@@ -11,7 +11,7 @@ describe('Testando a camada model "./product"', function () {
   it('Testando a função getAll', async function () {
     sinon.stub(connection, 'execute').resolves([getAllMock]);
 
-    const result = await productsModel.getAllMock();
+    const result = await productsModel.getAll();
 
     expect(result).to.be.deep.equal(getAllMock);
   });

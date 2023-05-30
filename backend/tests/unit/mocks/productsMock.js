@@ -13,6 +13,7 @@ const getAllMock = [
   },
 ];
 
+// getByIdMock: id = 1
 const getByIdMock = {
   id: 1,
   name: 'Martelo de Thor',

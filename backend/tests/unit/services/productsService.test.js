@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const productsService = require('../../../src/services/products.service');
-const { getAllMock, getByIdMock } = require('../mocks/productsMock');
+const { getAllMock, getByIdMock, insertMock } = require('../mocks/productsMock');
 
 describe('Testando a camada services "./product"', function () {
   afterEach(sinon.restore);
@@ -30,5 +30,13 @@ describe('Testando a camada services "./product"', function () {
     const result = await productsService.getById(2828);
 
     expect(result).to.be.deep.equal({ type: 404, message: 'Product not found' });
+  });
+
+  it('Testando a função insert', async function () {
+    sinon.stub(productsModel, 'insert').resolves(insertMock);
+
+    const { type } = await productsService.insert('Manopla do Infinito');
+
+    expect(type).to.be.deep.equal(201);
   });
 });

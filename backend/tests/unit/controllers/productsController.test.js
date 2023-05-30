@@ -7,7 +7,7 @@ chai.use(sinonChai);
 
 const productsService = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.controller');
-const { getAllMock, getByIdMock } = require('../mocks/productsMock');
+const { getAllMock, getByIdMock, insertMock } = require('../mocks/productsMock');
 
 describe('Testando a camada controller "./product"', function () {
   afterEach(sinon.restore);
@@ -53,5 +53,19 @@ describe('Testando a camada controller "./product"', function () {
     await productsController.getById(req, res);
   
     expect(res.status).to.be.calledWith(404);
+  });
+
+  it('Testando a função insert', async function () {
+    const req = { body: { name: 'Manopla do Infinito' } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+
+    sinon.stub(productsService, 'insert').resolves({ type: 201, message: insertMock });
+
+    await productsController.insert(req, res);
+  
+    expect(res.status).to.be.calledWith(201);
   });
 });

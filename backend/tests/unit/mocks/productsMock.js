@@ -19,7 +19,13 @@ const getByIdMock = {
   name: 'Martelo de Thor',
 };
 
+const insertMock = [{
+  id: 4,
+  name: 'Manopla do Infinito',
+}];
+
 module.exports = {
   getAllMock,
   getByIdMock,
+  insertMock,
 };

@@ -35,8 +35,8 @@ describe('Testando a camada services "./product"', function () {
   it('Testando a função insert', async function () {
     sinon.stub(productsModel, 'insert').resolves(insertMock);
 
-    const { type } = await productsService.insert('Manopla do Infinito');
+    const { message } = await productsService.insert('Manopla do Infinito');
 
-    expect(type).to.be.deep.equal(201);
+    expect(message.name).to.be.deep.equal('Manopla do Infinito');
   });
 });

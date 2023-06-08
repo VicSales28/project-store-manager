@@ -26,7 +26,34 @@ const getByIdMock = {
     quantity: 15,
 };
 
+const insertSaleMock = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+];
+
+const insertSaleProductMock = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+  ],
+};
+
+const saleMock = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+];
+
 module.exports = {
   getAllMock,
   getByIdMock,
+  insertSaleMock,
+  insertSaleProductMock,
+  saleMock,
 };

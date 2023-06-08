@@ -3,7 +3,13 @@ const sinon = require('sinon');
 
 const salesModel = require('../../../src/models/sales.model');
 const salesService = require('../../../src/services/sales.service');
-const { getAllMock, getByIdMock } = require('../mocks/salesMock');
+const { 
+  getAllMock, 
+  getByIdMock, 
+  insertSaleMock, 
+  insertSaleProductMock,
+  saleMock,
+} = require('../mocks/salesMock');
 
 describe('Testando a camada services "./sales"', function () {
   afterEach(sinon.restore);
@@ -30,5 +36,14 @@ describe('Testando a camada services "./sales"', function () {
     const result = await salesService.getById(2828);
 
     return expect(result).to.be.an('array').that.is.empty;
+  });
+
+  it('Testando a função insert', async function () {
+    sinon.stub(salesModel, 'insertSale').resolves(insertSaleMock);
+    sinon.stub(salesModel, 'insertSaleProduct').resolves(insertSaleProductMock);
+
+    const { message: { itemsSold } } = await salesService.insert(saleMock);
+
+    expect(itemsSold).to.be.deep.equal(saleMock);
   });
 });

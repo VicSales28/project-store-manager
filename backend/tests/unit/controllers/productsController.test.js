@@ -7,7 +7,7 @@ chai.use(sinonChai);
 
 const productsService = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.controller');
-const { getAllMock, getByIdMock, insertMock } = require('../mocks/productsMock');
+const { getAllMock, getByIdMock, insertMock, updateMock } = require('../mocks/productsMock');
 
 describe('Testando a camada controller "./product"', function () {
   afterEach(sinon.restore);
@@ -67,5 +67,19 @@ describe('Testando a camada controller "./product"', function () {
     await productsController.insert(req, res);
   
     expect(res.status).to.be.calledWith(201);
+  });
+
+  it('Testando a função update', async function () {
+    const req = { body: { name: 'Garras de Wolverine' }, params: { id: 2 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+
+    sinon.stub(productsService, 'update').resolves({ type: 200, data: updateMock });
+
+    await productsController.update(req, res);
+  
+    expect(res.status).to.be.calledWith(200);
   });
 });

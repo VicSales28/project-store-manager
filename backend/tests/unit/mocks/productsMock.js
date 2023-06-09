@@ -24,8 +24,15 @@ const insertMock = [{
   name: 'Manopla do Infinito',
 }];
 
+// updateMock: id = 2
+const updateMock = [{
+  id: 2,
+  name: 'Garras de Wolverine',
+}];
+
 module.exports = {
   getAllMock,
   getByIdMock,
   insertMock,
+  updateMock,
 };

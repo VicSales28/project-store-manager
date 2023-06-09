@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const productsService = require('../../../src/services/products.service');
-const { getAllMock, getByIdMock, insertMock } = require('../mocks/productsMock');
+const { getAllMock, getByIdMock, insertMock, updateMock } = require('../mocks/productsMock');
 
 describe('Testando a camada services "./product"', function () {
   afterEach(sinon.restore);
@@ -38,5 +38,21 @@ describe('Testando a camada services "./product"', function () {
     const { message } = await productsService.insert('Manopla do Infinito');
 
     expect(message.name).to.be.deep.equal('Manopla do Infinito');
+  });
+
+  it('Testando a função update', async function () {
+    sinon.stub(productsModel, 'update').resolves(updateMock);
+
+    const { data } = await productsService.update(2, 'Garras de Wolverine');
+
+    expect(data.name).to.be.deep.equal('Garras de Wolverine');
+  });
+
+  it('Testando a função update passando id inexistente', async function () {
+    sinon.stub(productsModel, 'update').resolves(undefined);
+
+    const result = await productsService.update(28, 'Armadura do Homem de Ferro');
+
+    expect(result).to.be.deep.equal({ type: 404, data: { message: 'Product not found' } });
   });
 });

@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const connection = require('../../../src/models/connection');
-const { getAllMock, insertMock } = require('../mocks/productsMock');
+const { getAllMock, insertMock, updateMock } = require('../mocks/productsMock');
 
 describe('Testando a camada model "./product"', function () {
   afterEach(sinon.restore);
@@ -30,5 +30,13 @@ describe('Testando a camada model "./product"', function () {
     const result = await productsModel.insert(insertMock.name);
 
     expect(result).to.be.deep.equal(insertMock);
+  });
+
+  it('Testando a função update', async function () {
+    sinon.stub(connection, 'execute').resolves([updateMock]);
+
+    const result = await productsModel.update([updateMock]);
+
+    expect(result).to.be.deep.equal(updateMock);
   });
 });

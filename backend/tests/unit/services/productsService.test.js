@@ -55,4 +55,17 @@ describe('Testando a camada services "./product"', function () {
 
     expect(result).to.be.deep.equal({ type: 404, data: { message: 'Product not found' } });
   });
+
+  it('Testando a função cut off', async function () {
+    sinon.stub(productsModel, 'cutoff').resolves([{ affectedRows: 1 }]);
+
+    const result = await productsService.cutoff(1);
+
+    expect(result).to.be.deep.equal(
+      {
+        type: 204,
+        data: { message: 'Product deleted sucessfully' },
+      },
+    );
+  });
 });

@@ -1,11 +1,13 @@
 const productsService = require('../services/products.service');
 
+const INTERNAL_ERROR = 'Erro interno';
+
 const getAll = async (_req, res) => {
   try {
     const products = await productsService.getAll();
     return res.status(200).json(products);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro interno', error: error.message });
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
   }
 };
 
@@ -20,7 +22,7 @@ const getById = async (req, res) => {
     }
     return res.status(200).json(message);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro interno', error: error.message });
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
   }
 };
 
@@ -30,7 +32,7 @@ const insert = async (req, res) => {
     const { message } = await productsService.insert(name);
     return res.status(201).json(message);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro interno', error: error.message });
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
   }
 };
 
@@ -41,7 +43,17 @@ const update = async (req, res) => {
     const { type, data } = await productsService.update(id, name);
     return res.status(type).json(data);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro interno', error: error.message });
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
+  }
+};
+
+const cutoff = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type, data } = await productsService.cutoff(id);
+    return res.status(type).json(data);
+  } catch (error) {
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
   }
 };
 
@@ -50,4 +62,5 @@ module.exports = {
   getById,
   insert,
   update,
+  cutoff,
 };

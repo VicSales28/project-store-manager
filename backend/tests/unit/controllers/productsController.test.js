@@ -82,4 +82,24 @@ describe('Testando a camada controller "./product"', function () {
   
     expect(res.status).to.be.calledWith(200);
   });
+
+  it('Testando a função cut off', async function () {
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'cutoff').resolves(
+      {
+        type: 204,
+        data: { message: 'Product deleted sucessfully' },
+      },
+    );
+
+    await productsController.cutoff(req, res);
+
+    expect(res.status).to.be.calledWith(204);
+    expect(res.json).to.be.calledWith({ message: 'Product deleted sucessfully' });
+  });
 });

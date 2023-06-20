@@ -27,9 +27,17 @@ const update = async (id, name) => {
   return { type: 200, data: { id: numberID, name } };
 };
 
+const cutoff = async (id) => {
+  const productNotFound = await checkProductId(id);
+  if (productNotFound) return productNotFound;
+  await productsModel.cutoff(id);
+  return { type: 204, data: { message: 'Product deleted sucessfully' } };
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
   update,
+  cutoff,
 };

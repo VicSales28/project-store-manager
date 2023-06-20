@@ -46,4 +46,20 @@ describe('Testando a camada services "./sales"', function () {
 
     expect(itemsSold).to.be.deep.equal(saleMock);
   });
+
+  it('Testando a função cut off', async function () {
+    sinon.stub(salesModel, 'cutoff').resolves();
+
+    const result = await salesService.cutoff(1);
+
+    expect(result).to.be.deep.equal({ type: 204, data: null });
+  });
+
+  it('Testando a função cut off passando id inexistente', async function () {
+    sinon.stub(salesModel, 'cutoff').resolves(undefined);
+
+    const result = await salesService.cutoff(28);
+
+    expect(result).to.be.deep.equal({ type: 404, data: { message: 'Sale not found' } });
+  });
 });

@@ -68,4 +68,19 @@ describe('Testando a camada controller "./sales"', function () {
   
     expect(res.status).to.be.calledWith(201);
   });
+
+  it('Testando a função cut off', async function () {
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'cutoff').resolves({ type: 204, data: null });
+
+    await salesController.cutoff(req, res);
+
+    expect(res.status).to.be.calledWith(204);
+    expect(res.json).to.be.calledWith(null);
+  });
 });

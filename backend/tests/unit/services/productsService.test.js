@@ -68,4 +68,12 @@ describe('Testando a camada services "./product"', function () {
       },
     );
   });
+
+  it('Testando a função cut off passando id inexistente', async function () {
+    sinon.stub(productsModel, 'cutoff').resolves(undefined);
+
+    const result = await productsService.cutoff(28);
+
+    expect(result).to.be.deep.equal({ type: 404, data: { message: 'Product not found' } });
+  });
 });

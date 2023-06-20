@@ -44,4 +44,16 @@ describe('Testando a camada model "./sales"', function () {
 
     expect(result).to.be.deep.equal(insertSaleProductMock);
   });
+
+  it('Testando a função cut off', async function () {
+    const id = 1;
+    const query0 = 'DELETE FROM StoreManager.sales WHERE  id = ?';
+    const query1 = 'DELETE FROM StoreManager.sales_products WHERE sale_id = ?';
+    sinon.stub(connection, 'execute').resolves();
+    await salesModel.cutoff(id);
+    expect(connection.execute.firstCall.args[0]).to.equal(query0);
+    expect(connection.execute.firstCall.args[1]).to.deep.equal([id]);
+    expect(connection.execute.secondCall.args[0]).to.equal(query1);
+    expect(connection.execute.secondCall.args[1]).to.deep.equal([id]);
+  });
 });

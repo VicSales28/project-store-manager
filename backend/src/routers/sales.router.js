@@ -8,5 +8,6 @@ const { validateSale } = require('../middlewares/validateSale');
 router.get('/', salesController.getAll);
 router.get('/:id', salesController.getById);
 router.post('/', validateSale, salesController.insert);
+router.delete('/:id', salesController.cutoff);
 
 module.exports = router;

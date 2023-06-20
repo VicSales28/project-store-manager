@@ -1,4 +1,5 @@
 const salesModel = require('../models/sales.model');
+const { checkSaleId } = require('../utils/checkSaleId');
 
 const getAll = async () => {
   const sales = await salesModel.getAll();
@@ -20,8 +21,16 @@ const insert = async (sale) => {
   return { message: { id: insertId, itemsSold: sale } };
 };
 
+const cutoff = async (id) => {
+  const saleNotFound = await checkSaleId(id);
+  if (saleNotFound) return saleNotFound;
+  await salesModel.cutoff(id);
+  return { type: 204, data: null };
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
+  cutoff,
 };

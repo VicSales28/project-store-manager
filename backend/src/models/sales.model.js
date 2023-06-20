@@ -30,6 +30,7 @@ const getById = async (id) => {
     sp.product_id ASC;`,
     [id],
   );
+  // console.log(sale); ==> { date: '2023-05-30T16:03:56.000Z', productId: 3, quantity: 15 }
   return sale;
 };
 
@@ -52,9 +53,15 @@ const insertSaleProduct = async ({ productId, quantity }, id) => {
   return result;
 };
 
+const cutoff = async (id) => {
+  await connection.execute('DELETE FROM StoreManager.sales WHERE  id = ?', [id]);
+  await connection.execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
+};
+
 module.exports = {
   getAll,
   getById,
   insertSale,
   insertSaleProduct,
+  cutoff,
 };

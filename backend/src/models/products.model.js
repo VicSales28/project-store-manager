@@ -47,7 +47,7 @@ const search = async (name) => {
     'SELECT * FROM StoreManager.products WHERE name LIKE ?',
     [`%${name}%`],
   );
-  console.log(result); // 
+  // console.log(result); ==> [ { id: 1, name: 'Martelo de Thor' } ]
   return result;
 };
 

@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const connection = require('../../../src/models/connection');
-const { getAllMock, insertMock, updateMock } = require('../mocks/productsMock');
+const { getAllMock, insertMock, updateMock, searchMock } = require('../mocks/productsMock');
 
 describe('Testando a camada model "./product"', function () {
   afterEach(sinon.restore);
@@ -55,5 +55,13 @@ describe('Testando a camada model "./product"', function () {
     expect(executeStub.firstCall.args[1]).to.deep.equal([1]);
 
     expect(result).to.deep.equal([{ affectedRows: 1 }]);
+  });
+
+  it('Testando a função search', async function () {
+  sinon.stub(connection, 'execute').resolves([searchMock]);
+
+    const result = await productsModel.search('Martelo');
+
+    expect(result).to.be.deep.equal(searchMock);
   });
 });

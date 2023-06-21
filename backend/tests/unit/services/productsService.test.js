@@ -3,7 +3,13 @@ const sinon = require('sinon');
 
 const productsModel = require('../../../src/models/products.model');
 const productsService = require('../../../src/services/products.service');
-const { getAllMock, getByIdMock, insertMock, updateMock } = require('../mocks/productsMock');
+const { 
+  getAllMock, 
+  getByIdMock, 
+  insertMock, 
+  updateMock, 
+  searchMock,
+} = require('../mocks/productsMock');
 
 describe('Testando a camada services "./product"', function () {
   afterEach(sinon.restore);
@@ -75,5 +81,13 @@ describe('Testando a camada services "./product"', function () {
     const result = await productsService.cutoff(28);
 
     expect(result).to.be.deep.equal({ type: 404, data: { message: 'Product not found' } });
+  });
+
+  it('Testando a função search', async function () {
+    sinon.stub(productsModel, 'search').resolves([searchMock]);
+
+    const result = await productsService.search('Martelo');
+
+    expect(result).to.be.deep.equal([searchMock]);
   });
 });

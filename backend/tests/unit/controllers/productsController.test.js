@@ -102,4 +102,19 @@ describe('Testando a camada controller "./product"', function () {
     expect(res.status).to.be.calledWith(204);
     expect(res.json).to.be.calledWith({ message: 'Product deleted sucessfully' });
   });
+
+  it('Testando a função search', async function () {
+    const req = { query: { q: 'Martelo' } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+
+    sinon.stub(productsService, 'search').resolves([getByIdMock]);
+
+    await productsController.search(req, res);
+  
+    expect(res.status).to.be.calledWith(200);
+    expect(res.json).to.be.calledWith([getByIdMock]);
+  });
 });

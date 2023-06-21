@@ -30,9 +30,17 @@ const updateMock = [{
   name: 'Garras de Wolverine',
 }];
 
+const searchMock = [
+  {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
+];
+
 module.exports = {
   getAllMock,
   getByIdMock,
   insertMock,
   updateMock,
+  searchMock,
 };

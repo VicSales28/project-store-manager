@@ -34,10 +34,16 @@ const cutoff = async (id) => {
   return { type: 204, data: { message: 'Product deleted sucessfully' } };
 };
 
+const search = async (name) => {
+  const result = await productsModel.search(name);
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
   update,
   cutoff,
+  search,
 };

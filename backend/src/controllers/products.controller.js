@@ -57,10 +57,21 @@ const cutoff = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const result = await productsService.search(q);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
   update,
   cutoff,
+  search,
 };

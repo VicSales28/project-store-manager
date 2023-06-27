@@ -58,10 +58,27 @@ const cutoff = async (id) => {
   await connection.execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
 };
 
+const update = async (saleId, productId, quantity) => {
+  const [date] = await connection.execute(
+    'SELECT date FROM StoreManager.sales WHERE id = ?',
+    [saleId],
+  );
+  console.log(date); 
+
+  const [result] = await connection.execute(
+    'UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ? AND product_id = ?',
+    [quantity, saleId, productId],
+  );
+  console.log(result); 
+
+  return date;
+};
+
 module.exports = {
   getAll,
   getById,
   insertSale,
   insertSaleProduct,
   cutoff,
+  update,
 };

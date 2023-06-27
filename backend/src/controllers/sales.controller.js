@@ -46,9 +46,21 @@ const cutoff = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { saleId, productId } = req.params;
+    const { quantity } = req.body;
+    const { type, data } = await salesService.update(saleId, productId, quantity);
+    return res.status(type).json(data);
+  } catch (error) {
+    return res.status(500).json({ message: INTERNAL_ERROR, error: error.message });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
   cutoff,
+  update,
 };

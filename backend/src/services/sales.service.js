@@ -1,4 +1,5 @@
 const salesModel = require('../models/sales.model');
+const { checkProductId } = require('../utils/checkProductId');
 const { checkSaleId } = require('../utils/checkSaleId');
 
 const getAll = async () => {
@@ -28,9 +29,29 @@ const cutoff = async (id) => {
   return { type: 204, data: null };
 };
 
+const update = async (saleId, productId, quantity) => {
+  const productNotFound = await checkProductId(productId);
+  if (productNotFound) return { type: 404, data: { message: 'Product not found in sale' } };
+
+  const saleNotFound = await checkSaleId(saleId);
+  if (saleNotFound) return saleNotFound;
+  
+  const [{ date }] = await salesModel.update(saleId, productId, quantity);
+
+  const data = {
+    date,
+    productId: Number(productId),
+    quantity: Number(quantity),
+    saleId: Number(saleId),
+  };
+
+  return { type: 200, data };
+};
+
 module.exports = {
   getAll,
   getById,
   insert,
   cutoff,
+  update,
 };

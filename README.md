@@ -18,7 +18,6 @@ The files created by me are in `project-store-manager/backend/src/`:
 - In the folder  📁`routers` there are the files responsible for defining routes.
 - In the folder  📁`middlewares` there are the files responsible for the validations.
 - In the folder  📁`utils` there are the files with auxiliary functions.
-- In the folder  📁`tests/unit` there are the files with the tests of each function.
 
 The created endpoints are:
 - GET /products
@@ -32,6 +31,17 @@ The created endpoints are:
 - DELETE /sales/:id
 - GET /products/search
 - PUT /:saleId/products/:productId/quantity
+
+The tests created by me are in `project-store-manager/backend/tests/unit/`:
+
+- In the folder  📁`controllers` there are the tests developed for the functions of the controller layer.
+- In the folder  📁`services` there are the tests developed for the functions of the service layer.
+- In the folder  📁`model` there are the tests developed for the functions of the model layer.
+- In the folder  📁`middlewares` there are the tests developed for the middlewares functions.
+
+Sinon and Chai are the test libraries used. 
+Sinon is a testing library that provides features for testing asynchronous code and simulating objects and functions. 
+Chai is a testing library that provides a more readable assertion syntax for your tests.
 
 </details>
 

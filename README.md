@@ -18,6 +18,7 @@ The files created by me are in `project-store-manager/backend/src/`:
 - In the folder  📁`routers` there are the files responsible for defining routes.
 - In the folder  📁`middlewares` there are the files responsible for the validations.
 - In the folder  📁`utils` there are the files with auxiliary functions.
+- In the folder  📁`tests/unit` there are the files with the tests of each function.
 
 The created endpoints are:
 - GET /products
